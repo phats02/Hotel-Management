@@ -1,0 +1,202 @@
+<nav class="navbar  sticky-top navbar-expand-lg bg-body-tertiary" id="header">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/home"> <img src="../../public/logo.png" class="img-icon" alt=""></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <form class="d-flex search" role="search">
+            <input class="form-control me-2 empty " type="search" aria-label="Search" placeholder="&#xf002;">
+        </form>
+        {{#if account}}
+        <div class="d-flex">
+            <i class="fa-solid fa-bell " style="font-size: 2em;"></i>
+
+            <form action="/login/profile" method="GET">
+                <button type="submit" class="btn  btn-success mx-4 "><i class="fa-solid fa-user"></i>
+                    {{account}}
+                </button>
+            </form>
+
+
+        </div>
+        {{else}}
+
+        <a type=" button" class="btn btn-success mr-2 font-weight-bold" href="/login/signin">LOGIN</a>
+
+        {{/if}}
+    </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="tab" id="tab">
+        <button class="tablinks" id="defaultOpen"><i class="fa-solid  fa-house"></i>
+            <a class="nav-link active" href="/home">
+                <h5>Home</h5>
+            </a>
+        </button>
+        <button class="tablinks"><i class="fa-solid fa-user"></i>
+
+            <a class="nav-link active" href="/customer">
+                <h5>Customer</h5>
+            </a>
+        </button>
+        <button class="tablinks"><i class="fa-solid fa-users"></i>
+
+            <a class="nav-link active" href="/tourist">
+                <h5>Tourist</h5>
+            </a>
+        </button>
+        <button class="tablinks"><i class="fa-solid fa-door-open"></i>
+
+            <a class="nav-link active" href="/room">
+                <h5>Room</h5>
+            </a>
+        </button>
+        <button class="tablinks"><i class="fa-solid fa-ticket"></i>
+
+            <a class="nav-link active" href="/ticket">
+                <h5>Ticket</h5>
+            </a>
+        </button>
+        <button class="tablinks"><i class="fa-solid fa-plane-up"></i>
+
+            <a class="nav-link active" href="/tour">
+                <h5>Tour</h5>
+            </a>
+        </button>
+        <button class="tablinks"><i class="fa-solid fa-arrow-right-from-bracket"></i>
+
+            <a class="nav-link active" href="/logout">
+                <h5>Logout</h5>
+            </a>
+        </button>
+    </div>
+
+</div>
+
+
+
+<style>
+    * {
+        box-sizing: border-box
+    }
+
+    .container-fluid {
+        font-family: 'Aclonica';
+    }
+
+    /* Style the tab */
+    .tab {
+        float: left;
+        border: 1px solid #ccc;
+        background-color: #4B85A6;
+        width: 15%;
+        height: 300px;
+        display: none;
+
+    }
+
+
+    /* Style the buttons that are used to open the tab content */
+    .tab button {
+        display: flex;
+        background-color: inherit;
+        color: black;
+        padding: 31px;
+        width: 100%;
+        border: none;
+        outline: none;
+        text-align: center;
+        cursor: pointer;
+        transition: 0.3s;
+        justify-content: space-evenly;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+        background-color: #9b8e8e;
+    }
+
+    /* Create an active/current "tab button" class */
+    .tab button:active {
+        background-color: #D9D9D9;
+    }
+
+
+
+
+
+    /* Style the tab content */
+    .tabcontent {
+        float: left;
+        padding: 0px 12px;
+        border: 1px solid #ccc;
+        width: 85%;
+        border-left: none;
+        height: 659px;
+
+    }
+
+    .tablinks .fa-user {
+        color: black;
+    }
+
+    .img-icon {
+        height: 60px;
+        width: 90px;
+
+    }
+
+    a.user {
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: inherit;
+    }
+
+    input.empty {
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        text-decoration: inherit;
+    }
+
+    .fa-user {
+        color: #ffffff;
+        width: 16px;
+    }
+
+    .fa-bell {
+
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        font-size: medium;
+        text-decoration: inherit;
+
+    }
+
+
+    .search {
+        margin-right: auto !important;
+        width: 30%;
+        height: 40px;
+    }
+
+
+
+
+    .form-control {
+        background-color: #F4EBEB;
+    }
+
+    .navbar {
+        background-color: rgb(255, 255, 255) !important;
+        display: none;
+    }
+
+    .nav-item a {
+        color: white !important;
+    }
+</style>

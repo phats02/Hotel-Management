@@ -1,0 +1,63 @@
+<div class="container-fluid">
+    <div class="d-flex flex-column mb-3">
+
+        {{#each this.tours}}
+        <div class="p-2 ">
+            <div class="card mx-auto mb-2 shadow" style="max-width: 80%;height:290px">
+                <div class="row g-0">
+                    <div class="col-md-5 ms-3 mt-3">
+                        <img src="../../public/vinh_ha_long.jpg" class="img-fluid rounded " alt="...">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <h6 class="card-title" style="font-weight: bolder;">{{TENTOUR}}</h6>
+                            <p class="card-text mb-0" style="font-weight:lighter;">
+                                <i class="fa-solid fa-location-dot" style="color:rgb(244, 57, 57)"></i>{{DIEMTHAMQUAN}}
+                            </p>
+                            <p class="card-text mb-0" style="font-weight:lighter;"> <i class="fa-solid fa-calendar-days"
+                                    style="color:rgb(246, 190, 87)"></i>{{GIOKHOIHANH}}</p>
+                            <p class="card-text mb-0" style="font-weight:lighter;"><i class="fa-solid fa-thumbs-up"
+                                    style="color:rgb(103, 103, 243)"></i>Điểm nổi bật:</p>
+                            <p class="card-text mb-0 mt-1" style="font-weight:lighter;font-size:medium;">
+                                {{GHICHU}}
+                            </p>
+
+                            <p class="card-text mb-0" style="font-weight:lighter;font-size: medium;">
+                                Chủ đề :{{CHUDE}} </p>
+                            <button type="button " class="btn btn-outline-danger" style=" position:relative;left:80%"><a
+                                    class="nav-link active" href="/tour/addtour?id={{MATOUR}}">
+                                    <h5>{{GIATOUR}}vnđ</h5>
+                                </a></button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {{/each}}
+
+    </div>
+
+
+</div>
+
+<style>
+    .card-body p {
+        width: 550px
+    }
+</style>
+
+<script>
+    function showNav() {
+        var nav = document.getElementById("header");
+        nav.style.display = "flex";
+    }
+    showNav()
+    function showTab() {
+        var tab = document.getElementById("tab");
+        tab.style.display = "block";
+    }
+    showTab()
+
+</script>

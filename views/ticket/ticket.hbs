@@ -1,0 +1,76 @@
+<div class="container-fluid">
+    <div class="d-flex flex-column mb-3">
+        <form action="/ticket/service" method="POST">
+            {{#each services}}
+            <div class="input-group  ms-5 tourinput " style="width:91.5%;">
+                <div class="form-control " style="background-color:#FFFFFF">
+                    <label for="{{TENDV}}" class="form-label" style="font-weight: bold;">{{TENDV}}</label>
+                    <select class="form-select" name="{{TENDV}}" aria-label="Default select example">
+                        <option value="0">0</option>
+
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+            </div>
+            {{/each}}
+
+
+
+            <button type="submit " class="btn btn-success mt-1"
+                style=" position:relative;left:86%;width:10%;height:31px;text-align:center">
+
+                <a class="nav-link active" href="/ticket/service">
+                    <h5>Add</h5>
+                </a>
+            </button>
+        </form>
+
+
+        <form action="/ticket/minibar" method="POST">
+
+            {{#each minibars}}
+            <div class="input-group  ms-5 tourinput " style="width:91.5%;">
+                <div class="form-control " style="background-color:#FFFFFF">
+                    <label for="{{TENVD}}" class="form-label" style="font-weight: bold;">{{TENVD}}</label>
+                    <select class="form-select" name="{{TENVD}}" aria-label="Default select example">
+                        <option value="0">0</option>
+
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+            </div>
+            {{/each}}
+
+
+            <button type="submit " class="btn btn-success mt-1"
+                style=" position:relative;left:86%;width:10%;height:31px;text-align:center">
+
+                <a class="nav-link active" href="/ticket/minibar">
+                    <h5>Add</h5>
+                </a>
+            </button>
+        </form>
+    </div>
+</div>
+</div>
+
+
+<script>
+    function showNav() {
+        var nav = document.getElementById("header");
+        nav.style.display = "flex";
+    }
+    showNav()
+    function showTab() {
+        var tab = document.getElementById("tab");
+        tab.style.display = "block";
+    }
+    showTab()
+
+
+
+</script>

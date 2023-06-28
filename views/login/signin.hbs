@@ -1,0 +1,143 @@
+<div class="container signin">
+    <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+            <div class="card border-0 shadow rounded-3 my-5">
+                <div class="" id="forgotPasswordContainer">
+
+                </div>
+                <div class="card-body p-4 p-sm-5" style="box-shadow: 10px 10px #667EEA ;">
+                    <img src="../../public/logo.png" class="img-icon rounded mx-auto d-block" alt="">
+                    <h2 class="card-title text-center mb-5 " style="color:#667EEA">Login</h3>
+                        <h4 class="card-title text-center mb-2 " style="color:#4A5568">Sign in to your account</h3>
+
+                            {{#if error}}
+                            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"
+                                    aria-label="Danger:">
+                                    <use xlink:href="#exclamation-triangle-fill" />
+                                </svg>
+                                <div>
+                                    {{error}}
+                                </div>
+                            </div>
+                            {{/if}}
+
+                            <form method="POST" action="">
+                                <div class=" mb-3 ">
+                                    <label for="floatingInput" class="form-label"></label>
+
+                                    <input name="username" type="text" class="form-control" id="floatingInput">
+                                </div>
+                                <div class=" mb-3">
+                                    <input name="password" type="password" class="form-control" id="floatingPassword">
+                                </div>
+                                <div class="d-grid mb-4">
+                                    <button class="btn  btn-login text-uppercase fw-bold"
+                                        style="background-color:#667EEA; color:white">Login</button>
+                                </div>
+
+                            </form>
+                            <div class="d-grid mb-2">
+                                <button class="btn  btn-login text-uppercase fw-bold"
+                                    style="background-color:#C8BFBF;color:#4A5568">
+                                    <a class="nav-link active" href="#popup1">Forgot password</a>
+                                </button>
+                                <div id="popup1" class="overlay">
+                                    <div class="popup">
+                                        <h2>Please contact your department head</h2>
+                                        <a class="close" href="#">&times;</a>
+
+                                        <button class=" okbutton"><a class="nav-link active" href="#">YES</a></button>
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+
+</script>
+<style>
+    .okbutton {
+        height: 47px;
+        width: 149px;
+        background-color: #F4EBEB;
+        border-radius: 27px;
+        margin-left: 500px;
+        background-color: #E5E9F3;
+        border: 2px solid #1125DD;
+        font-family: 'Aclonica';
+        text-decoration: none;
+        transition: all 200ms;
+
+
+    }
+
+    .signin {
+        font-family: 'Roboto';
+
+    }
+
+    .overlay {
+        position: fixed;
+
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        transition: opacity 500ms;
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .overlay:target {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    .popup {
+        width: 100px;
+        height: 30%;
+        margin: 390px;
+        padding: 100px;
+        background: #2B7E79;
+        border-radius: 5px;
+        width: 50%;
+        position: relative;
+        transition: all 3s ease-in-out;
+        text-align: center;
+
+    }
+
+    .popup h2 {
+        margin-top: 0;
+        color: black;
+        font-family: 'Aclonica';
+    }
+
+    .popup .close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        transition: all 200ms;
+        font-size: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #333;
+    }
+
+    .popup .close:hover {
+        color: #06D85F;
+    }
+
+    .popup .content {
+        max-height: 30%;
+        overflow: auto;
+    }
+</style>
