@@ -7,10 +7,10 @@
                     <div class="row" style="max-height: 100%">
                         <form class="row " style="max-width:90%; " method="post" action="/room">
                             <div class="col-auto p-2">
-                                <input type="date" id="birthdaytime" name="NgayDen_Input" value="{{NgayDen_Input}}">
+                                <input type="date" id="birthdaytime" name="NgayDen_Input" value="{{NgayDen_Input}}" required >
                             </div>
                             <div class="col-auto p-2">
-                                <input type="date" id="birthdaytime" name="NgayDi_Input" value="{{NgayDi_Input}}">
+                                <input type="date" id="birthdaytime" name="NgayDi_Input" value="{{NgayDi_Input}}" required>
                             </div>
                             <input value="true" name="isSearch" hidden>
                             <button type="submit" class="btn mt-1 btn-primary" style="height:2em; width:12%; ">
@@ -119,6 +119,16 @@
         console.log(idstr)
         console.log(input.value)
     }
+    function showNav() {
+        var nav = document.getElementById("header");
+        nav.style.display = "flex";
+    }
+    showNav()
+    function showTab() {
+        var tab = document.getElementById("tab");
+        tab.style.display = "block";
+    }
+    showTab()
 
         // Lấy các phần tử checkbox
     const emptyRoomCheckbox = document.getElementById("emptyroom");

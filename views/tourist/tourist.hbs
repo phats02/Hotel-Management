@@ -1,3 +1,60 @@
+<div class="container-fluid">
+    <div class="d-flex flex-column mb-3">
+        <div class="p-2 ">
+            <div class="card mx-auto mb-2 shadow" style="max-width: 100vw;max-height:100vh">
+                <div class="row g-0 " style="max-height: 100%; ">
+                    <div class="row" style="max-height: 100%; ">
+                        <div class="d-flex justify-content-end" style="max-width:95%">
+
+                            <button type="submit" class="btn" style="height:2em; ">
+                                <a class="nav-link active" id="book" href="/tourist/addtourist">
+                                    <i style="color:rgb(57, 244, 141); font-size: 30px;" class="fa-solid fa-users"></i>
+                                </a>
+                            </button>
+                        </div>
+                        <div class="row justify-content-center pt-1" style="height:80%; overflow:auto">
+                            <div class="col-11" id="bookedroom-table-body">
+                                <table class="table table-bordered w-95 px-2" style=" text-align:center;">
+                                    <thead>
+                                        <th>#</th>
+                                        <th>Tourist's name</th>
+                                        <th>Registrant's name</th>
+                                        <th>Num</th>
+                                    </thead>
+                                    <tbody>
+                                        {{#each tourist}}
+                                        <tr id="{{MaDoan}}" onclick="direct(this)">
+                                            <td>{{MaDoan}}</td>
+                                            <td>{{TenDoan}}</td>
+                                            <td>{{TenNguoiDangKy}}</td>
+                                            <td>{{SoNguoi}}</td>
+                                        </tr>
+                                        {{/each}}
+                                        <input type="text" name="madoan" value="" hidden>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    tbody tr {
+        color: #000;
+        /* màu văn bản mặc định */
+        transition: color 0.3s ease;
+        /* thời gian chuyển tiếp khi hover */
+    }
+
+    tbody tr:hover {
+        background-color: cadetblue;
+        /* màu văn bản khi hover */
+    }
+</style>
 <script>
     function showNav() {
         var nav = document.getElementById("header");
@@ -10,5 +67,11 @@
     }
     showTab()
 
+    function direct(element) {
+        var maD = element.cells[0].textContent;
 
+        var input = document.querySelector('input[name="madoan"]');
+        input.value = maD;
+        window.location.href = `tourist/DetailTourist?id=${element.id}`
+    }
 </script>

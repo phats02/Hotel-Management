@@ -1,0 +1,174 @@
+<div class="container-fluid">
+    <div class="d-flex flex-column mb-3">
+        <div class="p-2 ">
+            <div class="card mx-auto mb-2 shadow" style="max-width: 100vw;max-height:100vh; ">
+                <div class="alert shadow alert-light col-md-11 ms-5 mt-3 " style="color:#4B85A6" role="alert">
+                    <div class="d-inline ">Detail Tourist {{id}}</div>
+                </div>
+                {{#if error}}
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                        <use xlink:href="#exclamation-triangle-fill" />
+                    </svg>
+                    <div>
+                        {{error}}
+                    </div>
+                </div>
+                {{/if}}
+                {{#with Doan}}
+                <form method="post" action="/tourist/addtourist" style="">
+
+                    <div class="input-group  ms-5 tourinput " style="width:91.5%;">
+                        <span class="input-group-text" style="background-color:#FFFFFF">Tourist' name <span
+                                class="star">*</span></span>
+
+                        <input type="text" name="touristname" class="form-control" style="background-color:#FFFFFF"
+                            value="{{TenDoan}}" readonly>
+                    </div>
+                    <div class="input-group  ms-5 tourinput " style="width:91.5%;">
+                        <span class="input-group-text" style="background-color:#FFFFFF">Registrant's name <span
+                                class="star">*</span></span>
+
+                        <input type="text" name="registrantname" class="form-control" style="background-color:#FFFFFF"
+                            value="{{TenNguoiDangKy}}" readonly>
+                    </div>
+                    <div class="input-group  ms-5 tourinput mb-4" style="width:91.5%;">
+                        <span class="input-group-text" style="background-color:#FFFFFF">Number of members<span
+                                class="star">*</span></span>
+
+                        <input type="text" id="number1" name="number" class="form-control"
+                            style="background-color:#FFFFFF" readonly value="{{SoNguoi}}">
+                    </div>
+                    {{/with}}
+                    <div style="background-color:darkgrey; max-height: 45vh;overflow-x: hidden;overflow-y: scroll;">
+                        <div class="input-group  ms-5 tourinput pt-4 d-flex justify-content-between" style="width:90%;">
+
+                            <input type="text" id="minisearchbar" class="form-control" placeholder="&#xF002; Find"
+                                style="font-family:Aclonica, FontAwesome;background-color:#FFFFFF;">
+                            </input>
+
+                        </div>
+                        <div class="row justify-content-center pt-4">
+                            <div class="col-11" id="customer-table-body">
+                                <table class="table table-bordered"
+                                    style=" text-align:center; max-width = 100vw; border:#333; background-color:#FFFFFF;">
+                                    <div>
+                                        <thead>
+                                            <th style="font-size: 30px;">#</th>
+                                            <th><i class="fa-solid fa-user-tie" style="font-size: 30px;"></i></th>
+                                            <th><i class="fa-solid fa-location-dot" style="font-size: 30px;"></i></th>
+                                            <th><i class="fa-solid fa-phone" style="font-size: 30px;"></i></th>
+                                            <th><i class="fa-solid fa-id-card" style="font-size: 30px;"></i></th>
+                                        </thead>
+
+                                        <tbody>
+                                            {{#each customer}}
+                                            <tr id="{{MaKH}}">
+                                                <td>{{MaKH}}</td>
+                                                <td>{{HoTen}}</td>
+                                                <td>{{DiaChi}}</td>
+                                                <td>{{SDT}}</td>
+                                                <td>{{SoFAX}}</td>
+                                            </tr>
+                                            {{/each}}
+
+                                        </tbody>
+                                    </div>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height:3em">
+
+                </form>
+                <div id="popupregister" class="overlay" style=" visibility: hidden; opacity: 0;">
+                    <div class="popup">
+                        <h2>Added Successfully</h2>
+                        <a class="close" href="/tour">&times;</a>
+
+                        <button class=" okbutton"><a class="nav-link active" href="/tour">YES</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<style>
+    .star {
+        color: red
+    }
+
+    .tourinput {
+        width: 91.5%;
+        height: 60px;
+    }
+
+    .input-group-text {
+
+        width: 25%;
+
+    }
+
+    .okbutton {
+        height: 47px;
+        width: 149px;
+        background-color: #F4EBEB;
+        border-radius: 27px;
+        margin-left: 500px;
+        background-color: #E5E9F3;
+        border: 2px solid #1125DD;
+        font-family: 'Aclonica';
+        text-decoration: none;
+        transition: all 200ms;
+
+
+    }
+
+    .signin {
+        font-family: 'Roboto';
+
+    }
+
+    .customer-row:hover {
+        background-color: #4B85A6;
+        /* Add any other styles you want for the hover effect */
+    }
+
+    .overlay {
+        position: fixed;
+
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        transition: opacity 500ms;
+    }
+
+    .overlay:target {
+        visibility: visible;
+        opacity: 1;
+    }
+
+
+    tr.hover-row {
+        background-color: #4B85A6;
+        cursor: pointer;
+    }
+</style>
+<script>
+    function showNav() {
+        var nav = document.getElementById("header");
+        nav.style.display = "flex";
+    }
+    showNav()
+    function showTab() {
+        var tab = document.getElementById("tab");
+        tab.style.display = "block";
+    }
+    showTab()
+    count = 0;
+
+
+</script>
