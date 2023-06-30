@@ -1,13 +1,57 @@
+<div class="card mx-auto mb-2 shadow row p-4 m-4" style="max-height: 85vh;  overflow:auto; width: 80%">
+
+  <div class="container-fluid col">
+    <button class="" style="text-align=right; background-color: white; border:none;margin-left: 97%">
+      <a href="/customer/addcustomer"><i class="fa-sharp fa-solid fa-user-plus "
+          style="color:rgb(57, 244, 73); font-size: 30px;"></i></a>
+    </button>
+    <table class="table table-bordered"
+      style=" text-align:center; max-width = 100vw; border:#333; background-color:#FFFFFF;">
+      <div>
+        <thead>
+          <th style="font-size: 30px;">#</th>
+          <th><i class="fa-solid fa-user-tie" style="font-size: 30px;"></i></th>
+          <th><i class="fa-solid fa-location-dot" style="font-size: 30px;"></i></th>
+          <th><i class="fa-solid fa-phone" style="font-size: 30px;"></i></th>
+          <th><i class="fa-solid fa-id-card" style="font-size: 30px;"></i></th>
+        </thead>
+
+        <tbody>
+          {{#each allCustomer}}
+          <tr onclick="directpage(this)" id="{{MaKH}}">
+            <td>{{MaKH}}</td>
+            <td>{{HoTen}}</td>
+            <td>{{DiaChi}}</td>
+            <td>{{SDT}}</td>
+            <td>{{SoFAX}}</td>
+          </tr>
+          {{/each}}
+        </tbody>
+      </div>
+    </table>
+  </div>
+</div>
+
+<style>
+  tbody tr:hover {
+    background-color: #4B85A6;
+  }
+</style>
+
 <script>
-    function showNav() {
-        var nav = document.getElementById("header");
-        nav.style.display = "flex";
-    }
-    showNav()
-    function showTab() {
-        var tab = document.getElementById("tab");
-        tab.style.display = "block";
-    }
-    showTab()
+  function directpage(element){
+    console.log(element.id)
+    window.location.href = `/CustomerDetail?id=${element.id}`; 
+  }
+  function showNav() {
+    var nav = document.getElementById("header");
+    nav.style.display = "flex";
+  }
+  showNav()
+  function showTab() {
+    var tab = document.getElementById("tab");
+    tab.style.display = "flex";
+  }
+  showTab()
 
 </script>

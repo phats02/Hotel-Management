@@ -1,0 +1,59 @@
+<div class="card mx-auto mb-2 shadow row p-2 m-4" style="max-height: 85vh;  overflow:auto; width: 80%">
+    <div class="alert shadow alert-light col-md-11 ms-5 mt-3 " style="color:#4B85A6" role="alert">
+        <div class="d-inline ">Add customer</div>
+    </div>
+    <form method="POST" action="/customer/addcustomer" style="">
+        <div class="input-group  ms-5 tourinput " style="width:91.5%;">
+            <span class="input-group-text" style="background-color:#FFFFFF">Name: <span class="star">*</span></span>
+            <input type="text" aria-label="HoTen" name="HoTen" class="form-control" style="background-color:#FFFFFF"
+                required maxlength="50">
+        </div>
+        <div class="input-group  ms-5 tourinput " style="width:91.5%;">
+            <span class="input-group-text" style="background-color:#FFFFFF">Address: <span class="star">*</span></span>
+            <input type="text" aria-label="DiaChi" name="DiaChi" class="form-control" style="background-color:#FFFFFF"
+                required maxlength="50">
+        </div>
+        <div class="input-group  ms-5 tourinput " style="width:91.5%;">
+            <span class="input-group-text" style="background-color:#FFFFFF">Phone number: <span
+                    class="star">*</span></span>
+            <input type="text" aria-label="SDT" name="SDT" class="form-control" style="background-color:#FFFFFF"
+                required maxlength="11">
+        </div>
+        <div class="input-group  ms-5 tourinput " style="width:91.5%;">
+            <span class="input-group-text" style="background-color:#FFFFFF">Fax number: <span
+                    class="star">*</span></span>
+            <input type="text" aria-label="SoFax" name="SoFax" class="form-control" style="background-color:#FFFFFF"
+                required maxlength="50">
+        </div>
+        <div class="input-group  ms-5 tourinput " style="width:91.5%;">
+            <span class="input-group-text" style="background-color:#FFFFFF">Email: <span class="star">*</span></span>
+            <input type="text" aria-label="Email" name="Email" class="form-control" style="background-color:#FFFFFF"
+                required maxlength="50">
+        </div>
+        <button type="submit " class="btn btn-success mt-2"
+            style=" position:relative;left:88%;width:7%;height:40px;text-align:center;">
+                <h5 style="font-size:1.3em">ADD</h5>
+        </button>
+    </form>
+
+</div>
+
+<style>
+    .star {
+        color: red
+    }
+
+    .tourinput {
+        width: 91.5%;
+        height: 60px;
+    }
+
+    .input-group-text {
+        width: 25%;
+
+    }
+
+    * {
+        font-family: Aclonica
+    }
+</style>

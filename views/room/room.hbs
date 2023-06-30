@@ -1,13 +1,157 @@
+<div class="container-fluid">
+    <div class="d-flex flex-column mb-3">
+        <div class="p-2 ">
+            <div class="card mx-auto mb-2 shadow" style="max-width: 100vw;max-height:100vh;overflow: auto">
+
+                <div class="row g-0 " style="max-height: 100%; ">
+                    <div class="row" style="max-height: 100%">
+                        <form class="row " style="max-width:90%; " method="post" action="/room">
+                            <div class="col-auto p-2">
+                                <input type="date" id="birthdaytime" name="NgayDen_Input" value="{{NgayDen_Input}}">
+                            </div>
+                            <div class="col-auto p-2">
+                                <input type="date" id="birthdaytime" name="NgayDi_Input" value="{{NgayDi_Input}}">
+                            </div>
+                            <input value="true" name="isSearch" hidden>
+                            <button type="submit" class="btn mt-1 btn-primary" style="height:2em; width:12%; ">
+                                <a class="nav-link active " name="search">
+                                    <h5 style=" font-size:1em "><i class="fa-solid fa-magnifying-glass"> </i></h5>
+                                </a>
+                            </button>
+                            <div class="row  mt-2" style="width: 50%">
+                                <div class="col ps-5">
+                                    <input class="form-check-input" type="checkbox" id="emptyroom" name="cc" checked>
+                                    <label> Empty room</label><br>
+                                </div>
+                                <div class="col pe-5">
+                                    <input class="form-check-input" type="checkbox" id="bookedroom" name="cc" checked>
+                                    <label> Booked room</label><br>
+                                </div>
+                            </div>
+                        </form>
+                        {{#if isSearch}}
+                        <form class="row" action="room/bookroom" method="GET" style="max-width:10%; text-align:right">
+                            <button type="submit" class="btn btn-success mt-1" style="height:2em; ">
+                                <a class="nav-link active" id="book" href="">
+                                    <h5 style="font-size:1em">Book</h5>
+                                </a>
+                            </button>
+                            <input type="date" id="birthdaytime" name="NgayDen_Input" value="{{NgayDen_Input}}" hidden>
+                            <input type="date" id="birthdaytime" name="NgayDi_Input" value="{{NgayDi_Input}}" hidden>
+                            <input name="RoomID" value="" hidden>
+                        </form>
+                    </div>
+                    <div class="row justify-content-center pt-4" style="height:80%">
+                        <div class="col-11" id="bookedroom-table-body">
+                           <table class="table table-bordered w-95 px-2" style=" text-align:center">
+                                <thead>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Type</th>
+                                    <th>Cost</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th></th>
+                                </thead>
+                                <tbody>
+                                    {{#each BookedRoom}}
+                                    <tr>
+                                        <td>{{MaPhong}}</td>
+                                        <td>❌</td>
+                                        <td>{{TenLoaiPhong}}</td>
+                                        <td>{{Gia}}</td>
+                                        <td>{{ChangeStartDateFormat NgayDen}}</td>
+                                        <td>{{calculateEndDate NgayDen SoDemLuuTru}}</td>
+                                        <td></td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                                <tbody>
+                                    {{#each EmptyRoom}}
+                                    <tr name="emptyroom" onclick="toggleHover(this)" id="{{MaPhong}}">
+                                        <td>{{MaPhong}}</td>
+                                        <td>✅</td>
+                                        <td>{{TenLoaiPhong}}</td>
+                                        <td>{{Gia}}</td>
+                                        <td>-</td>
+                                        <td>-</td>
+                                        <td> </td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<style>
+    .col-auto {
+        padding-left: 10px;
+    }
+
+    .hover-row {
+        background-color: #4B85A6;
+        cursor: pointer;
+    }
+</style>
+
+
 <script>
-    function showNav() {
-        var nav = document.getElementById("header");
-        nav.style.display = "flex";
+    function toggleHover(element) {
+        element.classList.toggle('hover-row')
+        changinputvalue()
     }
-    showNav()
-    function showTab() {
-        var tab = document.getElementById("tab");
-        tab.style.display = "block";
+    function changinputvalue() {
+        arr = document.getElementsByClassName('hover-row')
+        idstr = '';
+        for (i = 0; i < arr.length; i++) {
+            idstr += arr[i].id + ','
+        }
+        var input = document.querySelector('input[name="RoomID"]');
+        idstr = idstr.slice(0, -1)
+        input.value = idstr;
+        console.log(idstr)
+        console.log(input.value)
     }
-    showTab()
+
+        // Lấy các phần tử checkbox
+    const emptyRoomCheckbox = document.getElementById("emptyroom");
+    const bookedRoomCheckbox = document.getElementById("bookedroom");
+    
+    // Lấy danh sách các phòng trống và đã đặt từ bảng
+    const emptyRooms = Array.from(document.getElementsByName("emptyroom"));
+    const bookedRooms = Array.from(document.querySelectorAll("tbody:first-of-type tr"));
+    
+    // Ẩn hiện phòng trống
+    emptyRoomCheckbox.addEventListener("change", function () {
+        if (emptyRoomCheckbox.checked) {
+            emptyRooms.forEach(function (room) {
+                room.style.display = "table-row";
+            });
+        } else {
+            emptyRooms.forEach(function (room) {
+                room.style.display = "none";
+            });
+        }
+    });
+    
+    // Ẩn hiện phòng đã đặt
+    bookedRoomCheckbox.addEventListener("change", function () {
+        if (bookedRoomCheckbox.checked) {
+            bookedRooms.forEach(function (room) {
+                room.style.display = "table-row";
+            });
+        } else {
+            bookedRooms.forEach(function (room) {
+                room.style.display = "none";
+            });
+        }
+    });
 
 </script>

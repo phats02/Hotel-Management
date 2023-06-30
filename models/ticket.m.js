@@ -1,33 +1,41 @@
 const db = require("../config/db")
-const DichVu = "DICHVU"
-const VatDung = "VATDUNG"
-const DichVuSuDung = "SUDUNG"
-const VatDungSuDung = "THUOC_PHONG_VATDUNG"
+const DAT = "DAT"
+const KHACHHANG= "KHACHHANG"
+const PHONG = "PHONG"
+const PHIEUDATPHONG ="PHIEUDATPHONG"
+const SUDUNG = "SUDUNG"
+const DICHVU = "DICHVU"
+const THAMGIA= "THAMGIA"
+const TOUR = "TOUR"
+const LOAIPHONG = "LOAIPHONG"
+const VATDUNG = "VATDUNG"
 module.exports = {
-    getAllService: async () => {
-        const services = await db.load(`SELECT * FROM ${DichVu}`)
-        return services;
+    getAllTicket: async () => {
+        const listTicket = db.load(`select * from ${DAT}, ${KHACHHANG} where ${DAT}.\`KhachHang_MaKH\`=${KHACHHANG}.\`MaKH\``)
+        return listTicket;
     },
-    getAllMinibars: async () => {
-        const minibars = await db.load(`SELECT * FROM ${VatDung}`)
-        return minibars
+    getOneTicket: async (ticketid)=>{
+        const ticket= db.load(`select * from ${DAT}, ${PHIEUDATPHONG} where ${DAT}.\`PhieuDatPhong_MaPhieuDP\`=${ticketid} and ${PHIEUDATPHONG}.\`MaPhieuDP\`=${ticketid}`)
+        return ticket
     },
-    getIDDichVu: async (tendichvu) => {
-        const id = await db.load(`SELECT MADV FROM ${DichVu} WHERE TENDV ='${tendichvu}'`)
-
-        return id
+    getServiceInTicket: async (ticketid) =>{
+        const listService= db.load(`select * from ${SUDUNG}, ${DICHVU} where ${SUDUNG}.\`PhieuDatPhong_MaPhieuDP\`=${ticketid} and ${DICHVU}.\`MaDV\`=${SUDUNG}.\`DichVu_MaDV\``)
+        return listService
     },
-    getIDMinibar: async (tenvatdung) => {
-        const id = await db.load(`SELECT MAVD FROM ${VatDung} WHERE TENVD ='${tenvatdung}'`)
-
-        return id
+    getTourForTicket: async(ticketid)=>{
+        const listTour = db.load(`select * from ${DAT}, ${THAMGIA}, ${TOUR} where ${DAT}.\`PhieuDatPhong_MaPhieuDP\`=${ticketid} and ${DAT}.\`KhachHang_MaKH\`= ${THAMGIA}.\`KhachHang_MaKH\` and ${THAMGIA}.\`Tour_MaTour\`=${TOUR}.\`MaTour\``)
+        return listTour
     },
-    addDichVuSuDung: async (result) => {
-        const res = await db.add(`${DichVuSuDung}`, result)
-        return res
+    getRoomRateForTicket: async(ticketid)=>{
+        const listRoomRate = db.load(`select * from ${DAT}, ${PHONG}, ${LOAIPHONG} where ${DAT}.\`PhieuDatPhong_MaPhieuDP\`=${ticketid} and ${DAT}.\`Phong_MaPhong\`= ${PHONG}.\`MaPhong\` and ${PHONG}.\`LoaiPhong_MaLoaiPhong\`=${LOAIPHONG}.\`MaLoaiPhong\``)
+        return listRoomRate
     },
-    addMinibarSuDung: async (result) => {
-        const res = await db.add(`${VatDungSuDung}`, result);
-        return res;
+    getAllService: async()=>{
+        const listService= db.load(`select * from ${DICHVU}`);
+        return listService;
+    },
+    getAllMiniBar: async()=>{
+        const listMiniBar= db.load(`select * from ${VATDUNG}`)
+        return listMiniBar;
     }
 }
