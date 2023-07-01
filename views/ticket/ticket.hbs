@@ -1,9 +1,14 @@
-    <script src="/frontend/dist/bundle.js"></script>
-
-<div id="root"></div>
+<script src="/frontend/dist/bundle.js"></script>
+<div class="container-fluid">
+  <div class="d-flex flex-column" style="max-height:90vh;">
+    <div class="card m-4 shadow" style="max-height:100%;">
+      <div id="root"></div>
+    </div>
+  </div>
+</div>
 
 <script>
-
-
+  function showNav() { var nav = document.getElementById("header");
+  nav.style.display = "flex"; } showNav()
 
 </script>

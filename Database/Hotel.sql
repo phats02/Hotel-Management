@@ -73,7 +73,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `HOTEL`.`Tour` (
   `MaTour` INT NOT NULL auto_increment,
-  `TenTour` VARCHAR(50) NULL,
+  `TenTour` VARCHAR(100) NULL,
   `GiaTour` FLOAT NULL,
   `GioKhoiHanh` DATETIME NULL,
   `DonVILuHanh_MaDV` INT NOT NULL,
@@ -180,23 +180,23 @@ CREATE TABLE IF NOT EXISTS `HOTEL`.`BuongPhong` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
--- Table `HOTEL`.`PhieuKiemTraPhong`
+-- Table `HOTEL`.`Dat`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `HOTEL`.`PhieuKiemTraPhong` (
-  `MaPhieuKT` INT NOT NULL auto_increment,
-  `TinhTrang` VARCHAR(50) NULL,
-  `BuongPhong_NhanVien_MaNV` INT NOT NULL,
-  PRIMARY KEY (`MaPhieuKT`, `BuongPhong_NhanVien_MaNV`),
-  INDEX `fk_PhieuKiemTraPhong_BuongPhong1_idx` (`BuongPhong_NhanVien_MaNV` ASC) VISIBLE,
-  CONSTRAINT `fk_PhieuKiemTraPhong_BuongPhong1`
-    FOREIGN KEY (`BuongPhong_NhanVien_MaNV`)
-    REFERENCES `HOTEL`.`BuongPhong` (`NhanVien_MaNV`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+CREATE TABLE IF NOT EXISTS `HOTEL`.`Dat` (
+  `MaKH` INT NOT NULL ,
+  `MaDoan` INT NOT NULL,
+  `YeuCau` VARCHAR(50) NULL,
+  `SoDemLuuTru` INT NULL,
+  `NgayDen` DATE NULL,
+  `XetDuyet` VARCHAR(50) NULL,
+  `GopY` VARCHAR(50) NULL,
+  `MaPhong` INT NOT NULL,
+  `MaNV` INT NOT NULL,
+  `MaDat` INT NOT NULL auto_increment,
+    PRIMARY KEY (`MaDat`)
+  )
 ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `HOTEL`.`PhieuDatPhong`
@@ -206,57 +206,10 @@ CREATE TABLE IF NOT EXISTS `HOTEL`.`PhieuDatPhong` (
   `GiaTong` FLOAT NULL,
   `HinhThucThanhToan` VARCHAR(50) NULL,
   `NgayThanhToan` DATE NULL,
-  `PhieuKiemTraPhong_MaPhieuKT` INT NOT NULL,
-  PRIMARY KEY (`MaPhieuDP`, `PhieuKiemTraPhong_MaPhieuKT`),
-  INDEX `fk_PhieuDatPhong_PhieuKiemTraPhong1_idx` (`PhieuKiemTraPhong_MaPhieuKT` ASC) VISIBLE,
-  CONSTRAINT `fk_PhieuDatPhong_PhieuKiemTraPhong1`
-    FOREIGN KEY (`PhieuKiemTraPhong_MaPhieuKT`)
-    REFERENCES `HOTEL`.`PhieuKiemTraPhong` (`MaPhieuKT`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+  `MaDat` VARCHAR(1000) NULL,
+	PRIMARY KEY (`MaPhieuDP`)
+)
 ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `HOTEL`.`Dat`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `HOTEL`.`Dat` (
-  `KhachHang_MaKH` INT NOT NULL auto_increment,
-  `KhachHang_TheoDoan_MaDoan` INT NOT NULL,
-  `YeuCau` VARCHAR(50) NULL,
-  `SoDemLuuTru` INT NULL,
-  `NgayDen` DATE NULL,
-  `XetDuyet` VARCHAR(50) NULL,
-  `GopY` VARCHAR(50) NULL,
-  `Phong_MaPhong` INT NOT NULL,
-  `LeTan_NhanVien_MaNV` INT NOT NULL,
-  `PhieuDatPhong_MaPhieuDP` INT NOT NULL,
-  PRIMARY KEY (`KhachHang_MaKH`, `KhachHang_TheoDoan_MaDoan`, `Phong_MaPhong`, `LeTan_NhanVien_MaNV`, `PhieuDatPhong_MaPhieuDP`),
-  INDEX `fk_Dat_Phong1_idx` (`Phong_MaPhong` ASC) VISIBLE,
-  INDEX `fk_Dat_LeTan1_idx` (`LeTan_NhanVien_MaNV` ASC) VISIBLE,
-  INDEX `fk_Dat_PhieuDatPhong1_idx` (`PhieuDatPhong_MaPhieuDP` ASC) VISIBLE,
-  CONSTRAINT `fk_Dat_KhachHang1`
-    FOREIGN KEY (`KhachHang_MaKH`)
-    REFERENCES `HOTEL`.`KhachHang` (`MaKH`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Dat_Phong1`
-    FOREIGN KEY (`Phong_MaPhong`)
-    REFERENCES `HOTEL`.`Phong` (`MaPhong`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Dat_LeTan1`
-    FOREIGN KEY (`LeTan_NhanVien_MaNV`)
-    REFERENCES `HOTEL`.`LeTan` (`NhanVien_MaNV`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Dat_PhieuDatPhong1`
-    FOREIGN KEY (`PhieuDatPhong_MaPhieuDP`)
-    REFERENCES `HOTEL`.`PhieuDatPhong` (`MaPhieuDP`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `HOTEL`.`KeToan`
@@ -355,25 +308,47 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `HOTEL`.`SuDung_PKTP_VatDung`
+-- Table `HOTEL`.`SuDung_VatDung`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `HOTEL`.`SuDung_PKTP_VatDung` (
-  `PhieuKiemTraPhong_MaPhieuKT` INT NOT NULL auto_increment,
+CREATE TABLE IF NOT EXISTS `HOTEL`.`SuDung_VatDung` (
+  `PhieuDatPhong_MaPhieuDP` INT NOT NULL ,
   `VatDung_MaVD` INT NOT NULL,
   `SoLuong` INT NULL,
-  PRIMARY KEY (`PhieuKiemTraPhong_MaPhieuKT`, `VatDung_MaVD`),
-  INDEX `fk_SuDung_PKTP_VatDung_VatDung1_idx` (`VatDung_MaVD` ASC) VISIBLE,
-  CONSTRAINT `fk_SuDung_PKTP_VatDung_PhieuKiemTraPhong1`
-    FOREIGN KEY (`PhieuKiemTraPhong_MaPhieuKT`)
-    REFERENCES `HOTEL`.`PhieuKiemTraPhong` (`MaPhieuKT`)
+  PRIMARY KEY (`PhieuDatPhong_MaPhieuDP`, `VatDung_MaVD`),
+  INDEX `fk_SuDung_VatDung_VatDung1_idx` (`VatDung_MaVD` ASC) VISIBLE,
+  CONSTRAINT `fk_SuDung_VatDung_PhieuDatPhong1`
+    FOREIGN KEY (`PhieuDatPhong_MaPhieuDP`)
+    REFERENCES `HOTEL`.`PhieuDatPhong` (`MaPhieuDP`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_SuDung_PKTP_VatDung_VatDung1`
+  CONSTRAINT `fk_SuDung_VatDung_VatDung1`
     FOREIGN KEY (`VatDung_MaVD`)
     REFERENCES `HOTEL`.`VatDung` (`MaVD`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `HOTEL`.`SuDung_Tour`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `HOTEL`.`SuDung_Tour` (
+  `PhieuDatPhong_MaPhieuDP` INT NOT NULL ,
+  `Tour_MaTour` INT NOT NULL,
+  `SoLuong` INT NULL,
+  PRIMARY KEY (`PhieuDatPhong_MaPhieuDP`, `Tour_MaTour`),
+  CONSTRAINT `fk_SuDung_Tour_PhieuDatPhong1`
+    FOREIGN KEY (`PhieuDatPhong_MaPhieuDP`)
+    REFERENCES `HOTEL`.`PhieuDatPhong` (`MaPhieuDP`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_SuDung_Tour_Tour1`
+    FOREIGN KEY (`Tour_MaTour`)
+    REFERENCES `HOTEL`.`Tour` (`MaTour`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
 
 -- -----------------------------------------------------
 -- Table `HOTEL`.`QuiDinh`
@@ -384,6 +359,36 @@ CREATE TABLE IF NOT EXISTS `HOTEL`.`QuiDinh` (
   `NoiDung` VARCHAR(100) NULL,
 
   PRIMARY KEY (`MaQD`))
+ENGINE = InnoDB;
+
+-- CREATE TABLE IF NOT EXISTS `HOTEL`.`test` (
+--   `Ma` INT NOT NULL auto_increment,
+--   `ABC` json NULL,
+
+--   PRIMARY KEY (`Ma`))
+-- ENGINE = InnoDB;
+
+-- INSERT INTO test (ABC)
+--   VALUES ('[1 ,2]');
+-- INSERT INTO test (ABC)
+--   VALUES ('["hot", "cold"]');
+-- select * from test;
+
+-- -----------------------------------------------------
+-- Table `HOTEL`.`QuiDinh`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `HOTEL`.`Deposit` (
+  `ID` INT NOT NULL auto_increment,
+  `PhieuDatPhong_MaPhieuDP` INT NOT NULL ,
+  `Date` DATE NULL,
+  `Volume` int NULL,
+  PRIMARY KEY (`ID`),
+  CONSTRAINT `fk_Deposit_PhieuDatPhong1`
+    FOREIGN KEY (`PhieuDatPhong_MaPhieuDP`)
+    REFERENCES `HOTEL`.`PhieuDatPhong` (`MaPhieuDP`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 SET SQL_MODE=@OLD_SQL_MODE;
@@ -457,15 +462,27 @@ INSERT INTO donviluhanh (MaDV,TenDV,DiaChi,SDT)
 VALUES
   (1,"Accumsan Convallis Ltd","950-9970 In St.","0538966869"),
   (2,"Sem Egestas Company","280-6955 Nisl Avenue","0456691854");
-
+INSERT INTO donviluhanh (MaDV, TenDV, DiaChi, SDT)
+VALUES
+(3, "Pellentesque Mattis Ltd", "345-567 Nullam St.", "0123456789"),
+(4, "Fusce Eu Corporation", "1234 Consectetur Ave", "0987654321"),
+(5, "Lorem Ipsum Travel", "789 Ipsum Street", "9876543210");
 select * from donviluhanh;
 
 -- ----------------------------------------- TOUR ---------------------------------------------------------
 
 INSERT INTO tour (MaTour,TenTour,GiaTour,GioKhoiHanh,DonVILuHanh_MaDV,GhiChu,ChuDe,DiemThamQuan)
 VALUES
-  (1,N'Hồ Chí Minh - Mỹ Tho - Cần Thơ - Miền Tây 2N1Đ',1850000,"2022-12-25 20:00:00",1,N'Tham quan khu du lịch Cồn Phụng, Trải nghiệm đi chợ nổi Cái Răng, Thử sức làm đặc sản kẹo dừa Bến Tre ',N'Văn Hóa',N'Cù Lao Thời Sơn, Cồn Phụng, Chợ nổi Cái Răng'),
-  (2,N'Khám Phá sông nước miền Tây: Cần Thơ - Cà Mau 4N3Đ',7590000,"2022-11-2 20:00:00",2,N'Tặng 20kg hành lý ký gửi bay Bamboo Airways, Thưởng thức bữa tối trên du thuyền Cần Thơ, Check in mũi Cà Mau nhà Công Tử Bạc Liêu, Tham quan Rừng Tràm Trà Sư ',N'Khám Phá',N'Chùa Dơi,Nhà công tử Bạc Liêu, Đất  Mũi, Rừng Tràm Trà Sư, Miếu  Bà Chúa Xứ Núi Sam, Chợ Nổi Cái Răng');
+  (1,N'Hồ Chí Minh - Mỹ Tho - Cần Thơ - Miền Tây 2N1Đ',18500,"2022-12-25 20:00:00",1,N'Tham quan khu du lịch Cồn Phụng, Trải nghiệm đi chợ nổi Cái Răng, Thử sức làm đặc sản kẹo dừa Bến Tre ',N'Văn Hóa',N'Cù Lao Thời Sơn, Cồn Phụng, Chợ nổi Cái Răng'),
+  (2,N'Khám Phá sông nước miền Tây: Cần Thơ - Cà Mau 4N3Đ',35900,"2022-11-2 20:00:00",2,N'Tặng 20kg hành lý ký gửi bay Bamboo Airways, Thưởng thức bữa tối trên du thuyền Cần Thơ, Check in mũi Cà Mau nhà Công Tử Bạc Liêu, Tham quan Rừng Tràm Trà Sư ',N'Khám Phá',N'Chùa Dơi,Nhà công tử Bạc Liêu, Đất  Mũi, Rừng Tràm Trà Sư, Miếu  Bà Chúa Xứ Núi Sam, Chợ Nổi Cái Răng');
+INSERT INTO tour (MaTour,TenTour,GiaTour,GioKhoiHanh,DonVILuHanh_MaDV,GhiChu,ChuDe,DiemThamQuan)
+VALUES(3,N'Tour Phú Quốc 3N2Đ',15000,"2022-12-2 11:00:00",3,N'Puolo Trip là thương hiệu chuyên về tour du lịch biển đảo giá rẻ – uy tín – chất lượng hàng đầu. Cam kết giá rẻ nhất với cùng chất lượng. Khởi hành xe giường nằm hàng tuần suốt năm. Với hành trình tour Phú Quốc 3 ngày 3 đêm, Puolo Trip sẽ đem tới cho du khách trải nghiệm đầy đủ với những điểm tham quan hot nhất tại Đảo Ngọc hiện nay',N'Khám Phá',N'Hà Tiên,Phú Quốc,Hòm Sơn,Thiên Đường Địa Trung Hải');
+INSERT INTO tour (MaTour,TenTour,GiaTour,GioKhoiHanh,DonVILuHanh_MaDV,GhiChu,ChuDe,DiemThamQuan)
+VALUES(4,N'Đà Lạt-Thác Dambri - Samten Hills Dalat 4N3Đ',35000,"2022-12-2 11:00:00",4,N'Hãy cùng khám phá hành trình tuyệt vời đến Đà Lạt - một thành phố nằm trên núi cao của miền Trung Việt Nam. Với khí hậu mát mẻ quanh năm và cảnh quan thiên nhiên tuyệt đẹp, Đà Lạt hứa hẹn mang đến những trải nghiệm đáng nhớ.',N'Khám Phá',N'Đà Lạt, Thác Dambri,Samten Hills DaLat');
+INSERT INTO tour (MaTour,TenTour,GiaTour,GioKhoiHanh,DonVILuHanh_MaDV,GhiChu,ChuDe,DiemThamQuan)
+VALUES(5,N'TOUR HÀNH HƯƠNG | Khởi Hành Sài Gòn - Khám Phá Bạc Liêu - Dừng Chân Sóc Trăng - 2N1Đ',10000,"2022-12-2 11:00:00",5,N'Tour hành hương 2 ngày 1 đêm này sẽ đưa bạn khám phá vùng đất linh thiêng và trải nghiệm những điểm đến độc đáo. Bắt đầu từ Sài Gòn, chúng tôi sẽ dẫn bạn đến Bạc Liêu - một điểm đến mang đậm nét văn hóa dân gian và tôn giáo.',N'Văn Hóa',N'Sài Gòn,Cần Thơ,Bạc Liêu,Sóc Trăng ');
+    
+  
   
   select * from Tour;
 
@@ -570,9 +587,9 @@ select * from ketoan;
 
  -- ----------------------------------------- LOAIPHONG---------------------------------------------------------
 
-INSERT loaiphong ( MaLoaiPhong,Gia,TenLoaiPhong ) VALUES ( 1,300000,"Loai A" );
-INSERT loaiphong ( MaLoaiPhong,Gia,TenLoaiPhong ) VALUES ( 2,400000,"Loai B" );
-INSERT loaiphong ( MaLoaiPhong,Gia,TenLoaiPhong ) VALUES ( 3,500000,"Loai C" );
+INSERT loaiphong ( MaLoaiPhong,Gia,TenLoaiPhong ) VALUES ( 1,3000,"Loai A" );
+INSERT loaiphong ( MaLoaiPhong,Gia,TenLoaiPhong ) VALUES ( 2,4000,"Loai B" );
+INSERT loaiphong ( MaLoaiPhong,Gia,TenLoaiPhong ) VALUES ( 3,5000,"Loai C" );
 
 select * from loaiphong ;
 
@@ -605,13 +622,13 @@ select * from phong ;
 
  -- ----------------------------------------- VATDUNG---------------------------------------------------------
 
-INSERT vatdung ( MaVD,TenVD , Gia ) VALUES ( 1,'Toothbrush',90000);
-INSERT vatdung ( MaVD,TenVD , Gia ) VALUES ( 2,'Spring water ',10000);
-INSERT vatdung ( MaVD,TenVD , Gia ) VALUES ( 3,'Carbonated drink',20000);
-INSERT vatdung ( MaVD,TenVD , Gia ) VALUES ( 4,'Snacks',12000);
-INSERT vatdung ( MaVD,TenVD , Gia ) VALUES ( 5,'Champagne',100000);
-INSERT vatdung ( MaVD,TenVD , Gia ) VALUES ( 6,'Fruit juices',40000);
-INSERT vatdung ( MaVD,TenVD , Gia ) VALUES ( 7,'Note',5000);
+INSERT vatdung ( MaVD,TenVD , Gia ) VALUES ( 1,'Toothbrush',10);
+INSERT vatdung ( MaVD,TenVD , Gia ) VALUES ( 2,'Spring water ',5);
+INSERT vatdung ( MaVD,TenVD , Gia ) VALUES ( 3,'Carbonated drink',15);
+INSERT vatdung ( MaVD,TenVD , Gia ) VALUES ( 4,'Snacks',15);
+INSERT vatdung ( MaVD,TenVD , Gia ) VALUES ( 5,'Champagne',1000);
+INSERT vatdung ( MaVD,TenVD , Gia ) VALUES ( 6,'Fruit juices',20);
+INSERT vatdung ( MaVD,TenVD , Gia ) VALUES ( 7,'Note',2);
 
 select * from vatdung ;
 
@@ -627,72 +644,69 @@ INSERT thuoc_phong_vatdung ( Phong_MaPhong, Vatdung_MaVD,Soluong ) VALUES ( 100,
 
 select * from thuoc_phong_vatdung;
 
- -- ----------------------------------------- PHIEUKIEMTRAPHONG---------------------------------------------------------
 
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 1,'',5);
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 2,'',5);
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 3,'',5);
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 4,'',5);
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 5,'',5);
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 6,'',5);
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 7,'',5);
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 8,'',6);
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 9,'', 6);
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 10,'',6);
+ -- ----------------------------------------- DAT---------------------------------------------------------
 
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 11,'',6);
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 12,'',6);
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 13,'',6);
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 14,'',7);
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 15,'',7);
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 16,'',7);
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 17,'',8);
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 18,'',8);
+INSERT INTO dat ( MaKH,MaDoan,YeuCau,SoDemLuuTru,NgayDen,XetDuyet,GopY,MaPhong,MaNV,MaDat ) 
+VALUES
+  (0,1,"",3,'2023-12-12',"Duyet","","100",1,1),
+  (0,1,"",3,'2023-12-12',"Duyet","","101",1,2),
+  (0,1,"",3,'2023-12-12',"Duyet","","102",1,3),
+  (0,1,"",3,'2023-12-12',"Duyet","","103",1,4),
+  (0,1,"",3,'2023-12-12',"Duyet","","104",1,5),
+  (0,1,"",3,'2023-12-12',"Duyet","","105",2,6),
+  (0,1,"",3,'2023-12-12',"Duyet","","106",2,7),
+  (0,1,"",3,'2023-12-12',"Duyet","","107",2,8),
+  (0,1,"",3,'2023-12-12',"Duyet","","108",2,9),
+  (0,1,"",3,'2023-12-12',"Duyet","","109",2,10);
+INSERT INTO dat ( MaKH,MaDoan,YeuCau,SoDemLuuTru,NgayDen,XetDuyet,GopY,MaPhong,MaNV,MaDat ) 
+VALUES
+  (0,2,"",2,'2023-12-15',"Duyet","","200",2,11),
+  (0,2,"",2,'2023-12-15',"Duyet","","201",2,12),
+  (0,2,"",2,'2023-12-15',"Duyet","","202",3,13),
+  (0,2,"",2,'2023-12-15',"Duyet","","203",3,14),
+  (0,2,"",2,'2023-12-15',"Duyet","","204",3,15),
+  (0,2,"",2,'2023-12-15',"Duyet","","205",3,16),
+  (0,2,"",2,'2023-12-15',"Duyet","","206",3,17),
+  (0,2,"",2,'2023-12-15',"Duyet","","207",3,18),
+  (19,0,"",5,'2023-10-15',"Duyet","","110",4,19),
+  (20,0,"",6,'2023-10-15',"Duyet","","208",4,20);
+ 
+ select * from dat;
 
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 19,'',8);
-INSERT phieukiemtraphong ( MaPhieuKT,TinhTrang,BuongPhong_NhanVien_MaNV ) VALUES ( 20,'',8);
-
-select * from phieukiemtraphong;
-
- -- ----------------------------------------- SUDUNG_PKTP_VATDUNG---------------------------------------------------------
-
-INSERT SUDUNG_PKTP_VATDUNG ( PhieuKiemTraPhong_MaPhieuKT,VatDung_MaVD,SoLuong ) VALUES ( 1,1,1);
-INSERT SUDUNG_PKTP_VATDUNG ( PhieuKiemTraPhong_MaPhieuKT,VatDung_MaVD,SoLuong ) VALUES ( 1,2,1);
-INSERT SUDUNG_PKTP_VATDUNG ( PhieuKiemTraPhong_MaPhieuKT,VatDung_MaVD,SoLuong ) VALUES ( 1,3,1);
-INSERT SUDUNG_PKTP_VATDUNG ( PhieuKiemTraPhong_MaPhieuKT,VatDung_MaVD,SoLuong ) VALUES ( 1,4,3);
-INSERT SUDUNG_PKTP_VATDUNG ( PhieuKiemTraPhong_MaPhieuKT,VatDung_MaVD,SoLuong ) VALUES ( 1,5,0);
-INSERT SUDUNG_PKTP_VATDUNG ( PhieuKiemTraPhong_MaPhieuKT,VatDung_MaVD,SoLuong ) VALUES ( 1,6,1);
-INSERT SUDUNG_PKTP_VATDUNG ( PhieuKiemTraPhong_MaPhieuKT,VatDung_MaVD,SoLuong ) VALUES ( 1,7,1);
-
-select * from SUDUNG_PKTP_VATDUNG;
 
  -- ----------------------------------------- PHIEUDATPHONG---------------------------------------------------------
 
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 1,1000000,"TienMat",'2023-09-12',1);
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 2,1000000,"TienMat",'2023-10-12',2);
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 3,1000000,"TienMat",'2023-09-29',3);
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 4,1000000,"TienMat",'2023-10-12',4);
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 5,1000000,"TienMat",'2023-05-12',5);
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 6,1000000,"TienMat",'2023-09-12',6);
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 7,1000000,"TienMat",'2023-06-15',7);
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 8,1000000,"TienMat",'2023-09-26',8);
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 9,1000000,"TienMat",'2023-01-12',9);
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 10,1000000,"TienMat",'2023-02-24',10);
-
-
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 11,2000000,"BangThe",'2023-10-12',11);
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 12,2000000,"BangThe",'2023-07-15',12);
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 13,2000000,"BangThe",'2023-09-04',13);
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 14,2000000,"BangThe",'2023-03-12',14);
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 15,2000000,"BangThe",'2023-03-17',15);
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 16,2000000,"BangThe",'2023-09-27',16);
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 17,2000000,"BangThe",'2023-12-12',17);
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 18,2000000,"BangThe",'2023-11-11',18);
-
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 19,1000000,"BangThe",'2023-09-12',19);
-INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,PhieuKiemTraPhong_MaPhieuKT ) VALUES ( 20,2000000,"BangThe",'2023-09-12',20);
+INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,MaDat ) VALUES ( 1,1000000,"TienMat",'2023-09-12','1,2,3,4,5,6,7,8,9,10');
+INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,MaDat ) VALUES ( 2,1000000,"TienMat",'2023-10-12','11,12,13,14,15,16,17,18');
+INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,MaDat ) VALUES ( 3,1000000,"TienMat",'2023-09-29','19');
+INSERT phieudatphong ( MaPhieuDP,GiaTong,HinhThucThanhToan,NgayThanhToan,MaDat ) VALUES ( 4,1000000,"TienMat",'2023-09-29','20');
 
 select * from phieudatphong;
+
+ -- ----------------------------------------- SUDUNG_VATDUNG---------------------------------------------------------
+
+INSERT SUDUNG_VATDUNG ( PhieuDatPhong_MaPhieuDP,VatDung_MaVD,SoLuong ) VALUES ( 1,1,1);
+INSERT SUDUNG_VATDUNG ( PhieuDatPhong_MaPhieuDP,VatDung_MaVD,SoLuong ) VALUES ( 1,2,1);
+INSERT SUDUNG_VATDUNG ( PhieuDatPhong_MaPhieuDP,VatDung_MaVD,SoLuong ) VALUES ( 1,3,1);
+INSERT SUDUNG_VATDUNG ( PhieuDatPhong_MaPhieuDP,VatDung_MaVD,SoLuong ) VALUES ( 1,4,3);
+INSERT SUDUNG_VATDUNG ( PhieuDatPhong_MaPhieuDP,VatDung_MaVD,SoLuong ) VALUES ( 1,5,0);
+INSERT SUDUNG_VATDUNG ( PhieuDatPhong_MaPhieuDP,VatDung_MaVD,SoLuong ) VALUES ( 1,6,1);
+INSERT SUDUNG_VATDUNG ( PhieuDatPhong_MaPhieuDP,VatDung_MaVD,SoLuong ) VALUES ( 1,7,1);
+
+select * from SuDung_VatDung;
+
+ -- ----------------------------------------- SUDUNG_TOUR---------------------------------------------------------
+
+INSERT SUDUNG_TOUR ( PhieuDatPhong_MaPhieuDP,Tour_MaTour,SoLuong ) VALUES ( 1,1,1);
+INSERT SUDUNG_TOUR ( PhieuDatPhong_MaPhieuDP,Tour_MaTour,SoLuong ) VALUES ( 2,1,1);
+INSERT SUDUNG_TOUR ( PhieuDatPhong_MaPhieuDP,Tour_MaTour,SoLuong ) VALUES ( 3,2,3);
+INSERT SUDUNG_TOUR ( PhieuDatPhong_MaPhieuDP,Tour_MaTour,SoLuong ) VALUES ( 4,2,1);
+
+
+select * from SUDUNG_TOUR;
+
+
 
  -- ----------------------------------------- DICHVU---------------------------------------------------------
 
@@ -706,58 +720,16 @@ select * from dichvu;
  -- ----------------------------------------- SUDUNG---------------------------------------------------------
 
 INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (1,1,1 );
-INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (2,1,1 );
-INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (3,1,1 );
-INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (4,1,1 );
-INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (5,2,1 );
-INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (6,2,1 );
-INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (7,2,1 );
-INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (8,2,1 );
-INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (9,2,1 );
-INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (10,3,1 );
+INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (1,2,1 );
+INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (1,3,1 );
 
-INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (11,3,1 );
-INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (12,3,1 );
-INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (13,3,1 );
-INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (14,3,1 );
-INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (15,3,1 );
-INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (16,4,1 );
-INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (17,4,1 );
-INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (18,4,1 );
+INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (2,3,1 );
+INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (2,4,1 );
 
-INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (19,4,1 );
-INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (20,4,1 );
+INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (3,4,1 );
+INSERT sudung ( PhieuDatPhong_MaPhieuDP,DichVu_MaDV,SoLuong ) VALUES (4,4,1 );
 
 select * from sudung;
-
- -- ----------------------------------------- DAT---------------------------------------------------------
-
-INSERT INTO dat ( KhachHang_MaKH,KhachHang_TheoDoan_MaDoan,YeuCau,SoDemLuuTru,NgayDen,XetDuyet,GopY,Phong_MaPhong,LeTan_NhanVien_MaNV,PhieuDatPhong_MaPhieuDP ) 
-VALUES
-  (1,1,"",3,'2023-12-12',"Duyet","","100",1,1),
-  (2,1,"",3,'2023-12-12',"Duyet","","101",1,2),
-  (3,1,"",3,'2023-12-12',"Duyet","","102",1,3),
-  (4,1,"",3,'2023-12-12',"Duyet","","103",1,4),
-  (5,1,"",3,'2023-12-12',"Duyet","","104",1,5),
-  (6,1,"",3,'2023-12-12',"Duyet","","105",2,6),
-  (7,1,"",3,'2023-12-12',"Duyet","","106",2,7),
-  (8,1,"",3,'2023-12-12',"Duyet","","107",2,8),
-  (9,1,"",3,'2023-12-12',"Duyet","","108",2,9),
-  (10,1,"",3,'2023-12-12',"Duyet","","109",2,10);
-INSERT INTO dat ( KhachHang_MaKH,KhachHang_TheoDoan_MaDoan,YeuCau,SoDemLuuTru,NgayDen,XetDuyet,GopY,Phong_MaPhong,LeTan_NhanVien_MaNV,PhieuDatPhong_MaPhieuDP ) 
-VALUES
-  (11,2,"",2,'2023-12-15',"Duyet","","200",2,11),
-  (12,2,"",2,'2023-12-15',"Duyet","","201",2,12),
-  (13,2,"",2,'2023-12-15',"Duyet","","202",3,13),
-  (14,2,"",2,'2023-12-15',"Duyet","","203",3,14),
-  (15,2,"",2,'2023-12-15',"Duyet","","204",3,15),
-  (16,2,"",2,'2023-12-15',"Duyet","","205",3,16),
-  (17,2,"",2,'2023-12-15',"Duyet","","206",3,17),
-  (18,2,"",2,'2023-12-15',"Duyet","","207",3,18),
-  (19,0,"",5,'2023-10-15',"Duyet","","110",4,19),
-  (20,0,"",6,'2023-10-15',"Duyet","","208",4,20);
- 
- select * from dat;
 
  -- ----------------------------------------- QUiDINH---------------------------------------------------------
 
@@ -766,3 +738,11 @@ INSERT quidinh ( MaQD,NoiDung ) VALUES (2,"2. Khong lam on anh huong den nguoi k
 INSERT quidinh ( MaQD,NoiDung ) VALUES (3,"3. Khong di chuyen vat dung tu phong nay sang phong khac" );
 
 select * from quidinh;
+
+ -- ----------------------------------------- DEPOSIT---------------------------------------------------------
+
+INSERT deposit( ID,PhieuDatPhong_MaPhieuDP,Date,Volume ) VALUES ( 1,1,'2023-12-15',10000 );
+INSERT deposit( ID,PhieuDatPhong_MaPhieuDP,Date,Volume ) VALUES ( 2,2,'2023-12-15',5000 );
+INSERT deposit( ID,PhieuDatPhong_MaPhieuDP,Date,Volume ) VALUES ( 3,3,'2023-12-15',15000 );
+INSERT deposit( ID,PhieuDatPhong_MaPhieuDP,Date,Volume ) VALUES ( 4,4,'2023-12-15',20000 );
+select * from deposit ;

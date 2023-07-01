@@ -9,7 +9,8 @@ exports.allRoom = async (req, res, next) => {
     if (req.session.user != null) {
         isLoggedIn = true
         res.render("room/room", {
-
+            isLoggedIn,
+            account: req.session.user,
         });
     }
     else {
@@ -24,14 +25,24 @@ exports.bookRoom = async (req, res, next) => {
     const customer = await roomM.getCusByID()
     const NgayDen_Input = req.query.NgayDen_Input
     const NgayDi_Input = req.query.NgayDi_Input
+    var isLoggedIn = false
 
-    res.render("room/bookroom", {
-        customer,
-        Doan,
-        id,
-        NgayDen_Input,
-        NgayDi_Input
-    })
+
+    if (req.session.user != null) {
+        isLoggedIn = true
+        res.render("room/bookroom", {
+            customer,
+            Doan,
+            id,
+            NgayDen_Input,
+            NgayDi_Input,
+            isLoggedIn,
+            account: req.session.user,
+        });
+    }
+    else {
+        res.redirect("/login/signin");
+    }
 }
 
 exports.bookCusTou = async (req, res, next) => {
@@ -60,16 +71,15 @@ exports.bookCusTou = async (req, res, next) => {
     }
     idstr = idstr.slice(0, -1)
     await roomM.addPDP(idstr)
-    res.render("room/room", {
-    })
+    res.redirect("/room")
 
 }
 
 exports.Search = async (req, res, next) => {
     const NgayDen_Input = req.body.NgayDen_Input
     const NgayDi_Input = req.body.NgayDi_Input
-    const isSearch= req.body.isSearch ;
-    Handlebars.registerHelper('calculateEndDate', function(NgayDen, SoDemLuuTru) {
+    const isSearch = req.body.isSearch;
+    Handlebars.registerHelper('calculateEndDate', function (NgayDen, SoDemLuuTru) {
         // Thực hiện phép tính để lấy ngày kết thúc
         var endDate = new Date(NgayDen);
         endDate.setDate(endDate.getDate() + SoDemLuuTru);
@@ -89,12 +99,26 @@ exports.Search = async (req, res, next) => {
     const BookedRoom = await roomM.getBookedRoom(NgayDen_Input, NgayDi_Input)
     const EmptyRoom = await roomM.getEmptyRoom(NgayDen_Input, NgayDi_Input)
 
-
-    res.render("room/room", {
-        BookedRoom,
-        isSearch,
-        EmptyRoom,
-        NgayDen_Input,
-        NgayDi_Input
-    })
+    if (req.session.user != null) {
+        isLoggedIn = true
+        res.render("room/room", {
+            BookedRoom,
+            isSearch,
+            EmptyRoom,
+            NgayDen_Input,
+            NgayDi_Input,
+            isLoggedIn,
+            account: req.session.user,
+        });
+    }
+    else {
+        res.redirect("/login/signin");
+    }
+    // res.render("room/room", {
+    //     BookedRoom,
+    //     isSearch,
+    //     EmptyRoom,
+    //     NgayDen_Input,
+    //     NgayDi_Input
+    // })
 }

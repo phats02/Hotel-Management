@@ -24,7 +24,7 @@ module.exports = {
 
     addCustomer: async (id, makh, ngayden, sodemluutru, sr, length1) => {
         const insertQuery = `INSERT INTO hotel.${DAT}(MaKH, MaDoan, YeuCau, SoDemLuuTru, NgayDen, XetDuyet, GopY, MaPhong, MaNV) 
-                       VALUES (${makh}, 0, '${sr}', ${sodemluutru}, '${ngayden}', 'Duyet', NULL, '${id}', '1')`;
+                       VALUES (${makh}, 0, '${sr}', ${sodemluutru}, '${ngayden}', '', NULL, '${id}', '1')`;
         const selectQuery = 'SELECT LAST_INSERT_ID()';
         await db.load(insertQuery);
         const result = await db.load(selectQuery);
@@ -33,7 +33,7 @@ module.exports = {
     },
 
     addTourist: async (id, mad, ngayden, sodemluutru, sr) => {
-        const insertQuery = `insert into hotel.${DAT}(MaKH, MaDoan, YeuCau, SoDemLuuTru, NgayDen, XetDuyet, GopY, MaPhong, MaNV) values(0,${mad},'${sr}', ${sodemluutru},'${ngayden}','Duyet',NULL,'${id}','1')`;
+        const insertQuery = `insert into hotel.${DAT}(MaKH, MaDoan, YeuCau, SoDemLuuTru, NgayDen, XetDuyet, GopY, MaPhong, MaNV) values(0,${mad},'${sr}', ${sodemluutru},'${ngayden}','',NULL,'${id}','1')`;
         const selectQuery = 'SELECT LAST_INSERT_ID()';
         await db.load(insertQuery);
         const result = await db.load(selectQuery);
