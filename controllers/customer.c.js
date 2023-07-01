@@ -34,7 +34,6 @@ exports.GetaddCustomer = async (req,res, next) =>{
 
 exports.PostAddCustomer= async(req, res,next) =>{
     var isLoggedIn = false
-    console.log(req.body)
     const Kh={
         HoTen: req.body.HoTen,
         DiaChi: req.body.DiaChi,
@@ -51,9 +50,9 @@ exports.PostAddCustomer= async(req, res,next) =>{
 
 exports.DetailCustomer  = async (req, res, next) => {
     var isLoggedIn = false
-    console.log()
+
     const Customer= await customerM.getOneCustomer(req.query.id)
-    console.log(Customer[0])
+  
     cus=Customer[0]
     if (req.session.user != null) {
         isLoggedIn = true

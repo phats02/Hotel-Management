@@ -81,7 +81,7 @@
                             <input type="text" aria-label="specialneed" name="speacialneed" class="form-control"
                                 style="background-color:#FFFFFF">
                         </div>
-                        <button type="submit " class="btn btn-success mt-1"
+                        <button type="submit " class="btn btn-success mt-4 mb-4"
                             style=" position:relative;left:86%;width:10%;height:31px;text-align:center">
 
                             <a class="nav-link active">
@@ -197,27 +197,10 @@
         overflow: auto;
     }
 </style>
-<script>
-    function showNav() {
-        var nav = document.getElementById("header");
-        nav.style.display = "flex";
-    }
-    showNav()
-    function showTab() {
-        var tab = document.getElementById("tab");
-        tab.style.display = "block";
-    }
-    showTab()
-
-
-
-</script>
-
 {{#if isTourRegister}}
 <script>
     function showRegisterSucceed() {
         var element = document.getElementById("popupregister");
-        console.log(element)
         element.style.visibility = "visible";
         element.style.opacity = 1;
     }

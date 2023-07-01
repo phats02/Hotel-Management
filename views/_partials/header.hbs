@@ -5,9 +5,9 @@
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <form class="d-flex search" role="search">
+        {{!-- <form class="d-flex search" role="search">
             <input class="form-control me-2 empty " type="search" aria-label="Search" placeholder="&#xf002;">
-        </form>
+        </form> --}}
         {{#if account}}
         <div class="d-flex">
             <i class="fa-solid fa-bell " style="font-size: 2em;"></i>
@@ -28,47 +28,54 @@
 </nav>
 <div class="container-fluid" style="padding: 0;">
     <div class="tab" id="tab">
-        <button class="tablinks" id="defaultOpen"><i class="fa-solid  fa-house"></i>
-            <a class="nav-link active" href="/home">
+        <a class="nav-link active" href="/home">
+            <button class="tablinks" id="defaultOpen"><i class="fa-solid  fa-house"></i>
+
                 <h5>Home</h5>
-            </a>
-        </button>
-        <button class="tablinks"><i class="fa-solid fa-user"></i>
-
-            <a class="nav-link active" href="/customer">
+            </button>
+        </a>
+        <a class="nav-link active" href="/customer">
+            <button class="tablinks"><i class="fa-solid fa-user"></i>
                 <h5>Customer</h5>
-            </a>
-        </button>
-        <button class="tablinks"><i class="fa-solid fa-users"></i>
+            </button>
+        </a>
+        <a class="nav-link active" href="/tourist">
+            <button class="tablinks"><i class="fa-solid fa-users"></i>
 
-            <a class="nav-link active" href="/tourist">
+
                 <h5>Tourist</h5>
-            </a>
-        </button>
-        <button class="tablinks"><i class="fa-solid fa-door-open"></i>
 
-            <a class="nav-link active" href="/room">
+            </button>
+        </a>
+        <a class="nav-link active" href="/room">
+            <button class="tablinks"><i class="fa-solid fa-door-open"></i>
                 <h5>Room</h5>
-            </a>
-        </button>
-        <button class="tablinks"><i class="fa-solid fa-ticket"></i>
+            </button>
+        </a>
+        <a class="nav-link active" href="/ticket">
+            <button class="tablinks"><i class="fa-solid fa-ticket"></i>
 
-            <a class="nav-link active" href="/ticket">
+
                 <h5>Ticket</h5>
-            </a>
-        </button>
-        <button class="tablinks"><i class="fa-solid fa-plane-up"></i>
 
-            <a class="nav-link active" href="/tour">
+            </button>
+        </a>
+        <a class="nav-link active" href="/tour">
+            <button class="tablinks"><i class="fa-solid fa-plane-up"></i>
+
+
                 <h5>Tour</h5>
-            </a>
-        </button>
-        <button class="tablinks"><i class="fa-solid fa-arrow-right-from-bracket"></i>
 
-            <a class="nav-link active" href="/logout">
+            </button>
+        </a>
+        <a class="nav-link active" href="/logout">
+            <button class="tablinks"><i class="fa-solid fa-arrow-right-from-bracket"></i>
+
+
                 <h5>Logout</h5>
-            </a>
-        </button>
+
+            </button>
+        </a>
     </div>
 
 </div>
@@ -78,6 +85,7 @@
 <style>
     #header {
         display: flex;
+        height: 10vh;
     }
 
     #tab {

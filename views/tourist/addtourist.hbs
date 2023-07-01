@@ -1,107 +1,104 @@
-
 <div class="container-fluid">
-    <div class="d-flex flex-column mb-3">
-        <div class="p-2 ">
-            <div class="card mx-auto mb-2 shadow" style="max-width: 100vw;max-height:100vh; ">
-                <div class="alert shadow alert-light col-md-11 ms-5 mt-3 " style="color:#4B85A6" role="alert">
-                    <div class="d-inline ">Add Tourist {{id}}</div>
-                </div>
-
-                {{#if error}}
-                <div class="alert alert-danger d-flex align-items-center" role="alert">
-                    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
-                        <use xlink:href="#exclamation-triangle-fill" />
-                    </svg>
-                    <div>
-                        {{error}}
-                    </div>
-                </div>
-                {{/if}}
-                <form method="post" action="/tourist/addtourist" style="">
-
-                    <div class="input-group  ms-5 tourinput " style="width:91.5%;">
-                        <span class="input-group-text" style="background-color:#FFFFFF">Tourist' name <span
-                                class="star">*</span></span>
-
-                        <input type="text" name="touristname" class="form-control" style="background-color:#FFFFFF"
-                            value="{{NgayDen_Input}}">
-                    </div>
-                    <div class="input-group  ms-5 tourinput " style="width:91.5%;">
-                        <span class="input-group-text" style="background-color:#FFFFFF">Registrant's name <span
-                                class="star">*</span></span>
-
-                        <input type="text" name="registrantname" class="form-control" style="background-color:#FFFFFF"
-                            value="{{NgayDi_Input}}">
-                    </div>
-                    <div class="input-group  ms-5 tourinput mb-4" style="width:91.5%;">
-                        <span class="input-group-text" style="background-color:#FFFFFF">Number of members<span
-                                class="star">*</span></span>
-
-                        <input oninput="allInput()" type="text" id="number1" name="number" class="form-control"
-                            style="background-color:#FFFFFF">
-                    </div>
-                    <div style="background-color:darkgrey; max-height: 45vh;overflow-x: hidden;overflow-y: scroll;">
-                        <div class="input-group  ms-5 tourinput pt-4 d-flex justify-content-between" style="width:90%;">
-
-                            <input type="text" name="phone" class="form-control" placeholder="&#xF002; Find"
-                                style="font-family:Aclonica, FontAwesome;background-color:#FFFFFF;">
-                            </input>
-                            <button class="" style="text-align=right; background-color: darkgrey; border:none">
-                                <i class="fa-sharp fa-solid fa-user-plus "
-                                    style="color:rgb(57, 244, 73); font-size: 30px;"></i>
-                            </button>
-
-                        </div>
-                        <div class="row justify-content-center pt-4">
-                            <div class="col-11" id="customer-table-body">
-                                <table class="table table-bordered"
-                                    style=" text-align:center; max-width = 100vw; border:#333; background-color:#FFFFFF;">
-                                    <div>
-                                        <thead>
-                                            <th style="font-size: 30px;">#</th>
-                                            <th><i class="fa-solid fa-user-tie" style="font-size: 30px;"></i></th>
-                                            <th><i class="fa-solid fa-location-dot" style="font-size: 30px;"></i></th>
-                                            <th><i class="fa-solid fa-phone" style="font-size: 30px;"></i></th>
-                                            <th><i class="fa-solid fa-id-card" style="font-size: 30px;"></i></th>
-                                        </thead>
-                                        {{#each customer}}
-                                        <tbody>
-                                            <tr onclick="toggleHover(this)" id="{{MaKH}}">
-                                                <td>{{MaKH}}</td>
-                                                <td>{{HoTen}}</td>
-                                                <td>{{DiaChi}}</td>
-                                                <td>{{SDT}}</td>
-                                                <td>{{SoFAX}}</td>
-                                                {{/each}}
-                                                <input name="MaKH" value="" hidden>
-                                            </tr>
-                                        </tbody>
-                                    </div>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="height:3em">
-                        <button type="submit " class="btn btn-success mt-1"
-                            style=" position:relative;left:90%;width:7%;height:31px;text-align:center;top:0.4em">
-
-                            <a class="nav-link active" style="">
-                                <h5 style="font-size:1em">Add</h5>
-                            </a>
-
-                        </button>
-                    </div>
-                </form>
-                <div id="popupregister" class="overlay" style=" visibility: hidden; opacity: 0;">
-                    <div class="popup">
-                        <h2>Added Successfully</h2>
-                        <a class="close" href="/tour">&times;</a>
-
-                        <button class=" okbutton"><a class="nav-link active" href="/tour">YES</a></button>
-                    </div>
-                </div>
-
+    <div class="d-flex flex-column" style="max-height:90vh;">
+        <div class="card m-4 shadow" style="max-height:100%; overflow: auto">
+            <div class="alert shadow alert-light col-md-11 ms-5 mt-3 " style="color:#4B85A6" role="alert">
+                <div class="d-inline ">Add Tourist {{id}}</div>
             </div>
+
+            {{#if error}}
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                    <use xlink:href="#exclamation-triangle-fill" />
+                </svg>
+                <div>
+                    {{error}}
+                </div>
+            </div>
+            {{/if}}
+            <form method="post" action="/tourist/addtourist" style="">
+
+                <div class="input-group  ms-5 tourinput " style="width:91.5%;">
+                    <span class="input-group-text" style="background-color:#FFFFFF">Tourist' name <span
+                            class="star">*</span></span>
+
+                    <input type="text" name="touristname" class="form-control" style="background-color:#FFFFFF"
+                        value="{{NgayDen_Input}}">
+                </div>
+                <div class="input-group  ms-5 tourinput " style="width:91.5%;">
+                    <span class="input-group-text" style="background-color:#FFFFFF">Registrant's name <span
+                            class="star">*</span></span>
+
+                    <input type="text" name="registrantname" class="form-control" style="background-color:#FFFFFF"
+                        value="{{NgayDi_Input}}">
+                </div>
+                <div class="input-group  ms-5 tourinput mb-4" style="width:91.5%;">
+                    <span class="input-group-text" style="background-color:#FFFFFF">Number of members<span
+                            class="star">*</span></span>
+
+                    <input oninput="allInput()" type="text" id="number1" name="number" class="form-control"
+                        style="background-color:#FFFFFF">
+                </div>
+                <div style="background-color:darkgrey; max-height: 45vh;overflow-x: hidden;overflow-y: scroll;">
+                    <div class="input-group  ms-5 tourinput pt-4 d-flex justify-content-between" style="width:90%;">
+
+                        <input type="text" name="phone" class="form-control" placeholder="&#xF002; Find"
+                            style="font-family:Aclonica, FontAwesome;background-color:#FFFFFF;">
+                        </input>
+                        <button class="" style="text-align=right; background-color: darkgrey; border:none">
+                            <i class="fa-sharp fa-solid fa-user-plus "
+                                style="color:rgb(57, 244, 73); font-size: 30px;"></i>
+                        </button>
+
+                    </div>
+                    <div class="row justify-content-center pt-4">
+                        <div class="col-11" id="customer-table-body">
+                            <table class="table table-bordered"
+                                style=" text-align:center; max-width = 100vw; border:#333; background-color:#FFFFFF;">
+                                <div>
+                                    <thead>
+                                        <th style="font-size: 30px;">#</th>
+                                        <th><i class="fa-solid fa-user-tie" style="font-size: 30px;"></i></th>
+                                        <th><i class="fa-solid fa-location-dot" style="font-size: 30px;"></i></th>
+                                        <th><i class="fa-solid fa-phone" style="font-size: 30px;"></i></th>
+                                        <th><i class="fa-solid fa-id-card" style="font-size: 30px;"></i></th>
+                                    </thead>
+                                    {{#each customer}}
+                                    <tbody>
+                                        <tr onclick="toggleHover(this)" id="{{MaKH}}">
+                                            <td>{{MaKH}}</td>
+                                            <td>{{HoTen}}</td>
+                                            <td>{{DiaChi}}</td>
+                                            <td>{{SDT}}</td>
+                                            <td>{{SoFAX}}</td>
+                                            {{/each}}
+                                            <input name="MaKH" value="" hidden>
+                                        </tr>
+                                    </tbody>
+                                </div>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div style="height:3em">
+                    <button type="submit " class="btn btn-success mt-1"
+                        style=" position:relative;left:90%;width:7%;height:31px;text-align:center;top:0.4em">
+
+                        <a class="nav-link active" style="">
+                            <h5 style="font-size:1em">Add</h5>
+                        </a>
+
+                    </button>
+                </div>
+            </form>
+            <div id="popupregister" class="overlay" style=" visibility: hidden; opacity: 0;">
+                <div class="popup">
+                    <h2>Added Successfully</h2>
+                    <a class="close" href="/tour">&times;</a>
+
+                    <button class=" okbutton"><a class="nav-link active" href="/tour">YES</a></button>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
@@ -170,21 +167,11 @@
     }
 </style>
 <script>
-    function showNav() {
-        var nav = document.getElementById("header");
-        nav.style.display = "flex";
-    }
-    showNav()
-    function showTab() {
-        var tab = document.getElementById("tab");
-        tab.style.display = "block";
-    }
-    showTab()
+
     count = 0;
     function allInput() {
         count = parseInt(document.getElementById('number1').value)
     }
-
     function toggleHover(element) {
         if (((!element.classList[0]) && (count > 0))) {
             element.classList.toggle('hover-row')

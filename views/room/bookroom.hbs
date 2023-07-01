@@ -1,12 +1,9 @@
-<link rel="stylesheet" href="room.js">
-
-
 <div class="container-fluid">
-    <div class="d-flex flex-column mb-3">
-        <div class="p-2 ">
-            <div class="card mx-auto mb-2 shadow" style="max-width: 100vw;max-height:100vh; ">
+    <div class="d-flex flex-column" style="max-height:90vh;">
+            <div class="card m-4 shadow" style="max-height:100%; overflow: auto">
                 <div class="alert shadow alert-light col-md-11 ms-5 mt-3 " style="color:#4B85A6" role="alert">
                     <div class="d-inline ">Book Room {{id}}</div>
+
                     <div class="d-inline float-end" style=" ">
                         {{!-- <button type="submit " class="btn btn-success " style="height:31px;text-align:right">
                             <a class="nav-link active" href="room/bookroom">
@@ -26,8 +23,8 @@
                     </div>
                 </div>
                 {{/if}}
-                <form method="POST" action="" style="">
-
+                <form method="POST" action="/room2" style="">
+                    <input type="text" name="RoomID" value="{{id}}" hidden>
                     <div class="input-group  ms-5 tourinput " style="width:91.5%;">
                         <span class="input-group-text" style="background-color:#FFFFFF">From <span
                                 class="star">*</span></span>
@@ -46,7 +43,7 @@
                         <span class="input-group-text" style="background-color:#FFFFFF">Special requirement<span
                                 class="star">*</span></span>
 
-                        <input type="text" aria-label="email" name="phone" class="form-control"
+                        <input type="text" aria-label="email" name="specialrequirement" class="form-control"
                             style="background-color:#FFFFFF">
                     </div>
                     <div style="text-align: center;">
@@ -75,7 +72,7 @@
 
                         </div>
                         <div class="row justify-content-center pt-4">
-                            <div class="col-11" id="customer-table-body" >
+                            <div class="col-11" id="customer-table-body">
                                 <table class="table table-bordered"
                                     style=" text-align:center; max-width = 100vw; border:#333; background-color:#FFFFFF;">
                                     <div>
@@ -120,7 +117,7 @@
                                             <td>{{TenNguoiDangKy}}</td>
                                             <td>{{SoNguoi}}</td>
                                             {{/each}}
-                                            <input type="text" name="MaKH" hidden value="{{MaKH}}">
+                                            <input type="text" name="MaD" hidden value="{{MaDoan}}">
                                         </tr>
                                     </tbody>
                                 </table>
@@ -128,28 +125,19 @@
                         </div>
                     </div>
                     <div style="height:3em">
-                    <button type="submit " class="btn btn-success mt-1"
-                        style=" position:relative;left:90%;width:7%;height:31px;text-align:center;top:0.4em">
+                        <button type="submit " class="btn btn-success mt-1"
+                            style=" position:relative;left:90%;width:7%;height:31px;text-align:center;top:0.4em">
 
-                        <a class="nav-link active" style="">
-                            <h5 style="font-size:1em">Book</h5>
-                        </a>
+                            <a class="nav-link active" href="">
+                                <h5 style="font-size:1em">Book</h5>
+                            </a>
 
-                    </button>
+                        </button>
                     </div>
                 </form>
-                <div id="popupregister" class="overlay" style=" visibility: hidden; opacity: 0;">
-                    <div class="popup">
-                        <h2>Added Successfully</h2>
-                        <a class="close" href="/tour">&times;</a>
-
-                        <button class=" okbutton"><a class="nav-link active" href="/tour">YES</a></button>
-                    </div>
-                </div>
 
             </div>
         </div>
-    </div>
 </div>
 </div>
 <style>
@@ -216,25 +204,24 @@
     }
 </style>
 <script>
-    function showNav() {
-        var nav = document.getElementById("header");
-        nav.style.display = "flex";
-    }
-    showNav()
-    function showTab() {
-        var tab = document.getElementById("tab");
-        tab.style.display = "block";
-    }
-    showTab()
     function toggleHover(element) {
         toggleRow = document.querySelector('.hover-row');
         if (toggleRow) toggleRow.classList.toggle('hover-row')
         element.classList.toggle('hover-row')
-        var maKH = element.cells[0].textContent;
-        var input = document.querySelector('input[name="MaKH"]');
-
-        input.value = maKH;
-        console.log(input.value)
+        var cc1 = document.getElementById("customer")
+        var cc2 = document.getElementById("tourist")
+        var input1 = document.querySelector('input[name="MaKH"]');
+        var input2 = document.querySelector('input[name="MaD"]');
+        if (cc1.checked) {
+            input2.value=""
+            var maKH = element.cells[0].textContent;
+            input1.value = maKH;
+        }
+        if (cc2.checked) {
+            input1.value=""
+            var maD = element.cells[0].textContent;
+            input2.value = maD;
+        }
     }
     document.getElementById("customer-table-body").style.display = "block";
     document.getElementById("tourist-table-body").style.display = "none"

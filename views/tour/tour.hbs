@@ -1,10 +1,9 @@
 <div class="container-fluid">
-    <div class="d-flex flex-column mb-3">
-
+    <div class="d-flex flex-column " style="height: 90vh; overflow:auto">
         {{#each this.tours}}
-        <div class="p-2 ">
-            <div class="card mx-auto mb-2 shadow" style="max-width: 80%;">
-                <div class="row g-0">
+        <div class="row g-0 m-2">
+            <div class="card mx-auto shadow" style="max-width: 80%; min-height:300px">
+                <div class="row g-0" style="height: 100%;">
                     <div class="col-md-5 ms-3 mt-3">
                         <img src="../../public/vinh_ha_long.jpg" class="img-fluid rounded " alt="...">
                     </div>
@@ -15,50 +14,46 @@
                                 <i class="fa-solid fa-location-dot" style="color:rg b(0, 51, 0)"></i>{{DiemThamQuan}}
                             </p>
                             <p class="card-text mb-0" style="font-weight:lighter;"> <i class="fa-solid fa-calendar-days"
-                                    style="color:rgb(246, 190, 87)"></i>{{GioKhoiHanh}}</p>
+                                    style="color:rgb(246, 190, 87)"></i>{{ChangeStartDateFormat GioKhoiHanh}}
+                            </p>
                             <p class="card-text mb-0" style="font-weight:lighter;"><i class="fa-solid fa-thumbs-up"
-                                    style="color:rgb(103, 103, 243)"></i>Điểm nổi bật:</p>
+                                    style="color:rgb(103, 103, 243)"></i>Điểm nổi
+                                bật:</p>
                             <p class="card-text mb-0 mt-1" style="font-weight:lighter;font-size:medium;">
                                 {{GhiChu}}
                             </p>
-
                             <p class="card-text mb-0" style="font-weight:lighter;font-size: medium;">
                                 Chủ đề :{{ChuDe}} </p>
-                            <button type="button " class="btn btn-outline-danger" style=" position:relative;left:70% ;display: flex;
-                            justify-content: center;  align-items: center;"><a class="nav-link active"
-                                    href="/tour/addtour?id={{MaTour}}">
-                                    <h5>{{GiaTour}}vnđ</h5>
-                                </a></button>
                         </div>
-
+                        <button type="button " class="btn btn-outline-danger"
+                            style=" position:relative;left:80%; bottom:5%"><a class="nav-link active"
+                                href="/tour/addtour?id={{MaTour}}">
+                                <h5>{{GiaTour}}vnđ</h5>
+                            </a></button>
                     </div>
 
                 </div>
             </div>
         </div>
         {{/each}}
-
     </div>
-
-
 </div>
 
+
 <style>
+    h6{
+        font-family: Calibri; 
+    }
     .card-body p {
-        width: 100%
+        width: 100%;
+        font-family: Calibri;
+        font-size: large;
+    }
+     * {
+        
     }
 </style>
 
 <script>
-    function showNav() {
-        var nav = document.getElementById("header");
-        nav.style.display = "flex";
-    }
-    showNav()
-    function showTab() {
-        var tab = document.getElementById("tab");
-        tab.style.display = "block";
-    }
-    showTab()
 
 </script>
